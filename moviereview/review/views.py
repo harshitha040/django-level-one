@@ -24,4 +24,26 @@ def movies(request):
     return JsonResponse({'error':"error occured"},status=400)
 
 
-
+@csrf_exempt
+def cinema(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        # Get rating as number
+        rating_number = float(data.get("rating", 0))
+        # Convert number into stars
+        stars = "★" * int(rating_number)
+        # Save number in DB
+        movie = Movie_details.objects.create(
+            movie_name=data.get("movie_name"),
+            release_date=data.get("release_date"),
+            budget=data.get("budget"),
+            rating=rating_number
+        )
+        # Replace rating in response with stars
+        data["rating"] = stars
+        return JsonResponse({
+            'status': "success",
+            'message': "Movie record inserted successfully",
+            'data': data
+        }, status=200)
+    return JsonResponse({'error': "error occurred"}, status=400)
