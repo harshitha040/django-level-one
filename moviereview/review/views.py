@@ -18,32 +18,33 @@ def movie_info(request):
 @csrf_exempt
 def movies(request):
     if request.method=='POST':
-        data=json.loads(request.body)
+        # data=json.loads(request.body) #whenever we send data in json fromat
+        data=request.POST  # whenever we send data in form format
         movie=Movie_details.objects.create(movie_name=data.get("movie_name"),release_date=data.get("release_date"),budget=data.get("budget"),rating=data.get("rating"))
         return JsonResponse({'status':"success",'message':"Movie record inserted successfully","data":data},status=200)
     return JsonResponse({'error':"error occured"},status=400)
 
-
 @csrf_exempt
 def cinema(request):
-    if request.method == 'POST':
+    if request.method == "POST":
         data = json.loads(request.body)
-        # Get rating as number
-        rating_number = float(data.get("rating", 0))
-        # Convert number into stars
-        stars = "★" * int(rating_number)
-        # Save number in DB
         movie = Movie_details.objects.create(
-            movie_name=data.get("movie_name"),
-            release_date=data.get("release_date"),
-            budget=data.get("budget"),
-            rating=rating_number
+            movie_name = data.get("movie_name"),
+            release_date = data.get("release_date"),
+            budget = data.get("budget"),
+            rating = data.get("rating"),
         )
-        # Replace rating in response with stars
-        data["rating"] = stars
         return JsonResponse({
-            'status': "success",
-            'message': "Movie record inserted successfully",
-            'data': data
+            "status": "success",
+            "msg": "movie record inserted successfully",
+            "data": {
+                "id": movie.id,
+                "movie_name": movie.movie_name,
+                "release_date": movie.release_date,
+                "budget": movie.budget,
+                "rating": movie.rating * "*",
+            }
         }, status=200)
-    return JsonResponse({'error': "error occurred"}, status=400)
+        
+        
+        
