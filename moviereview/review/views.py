@@ -20,7 +20,7 @@ def movies(request):
     if request.method=='GET':
         Movie_info=Movie_details.objects.all()
         movie_list=[]
-        for movie in movies:
+        for movie in Movie_info:
             movie_list.append({
                 'movie_name':movie.movie_name,
                 'release_date':movie.release_date,
@@ -57,14 +57,12 @@ def movies(request):
         ref_id=int(data)
         existing_movie=Movie_details.objects.get(id=ref_id)
         existing_movie.delete()
-        return JsonResponse({'status':"success",'message':"movie record deleted successfully","data":data},status=200)
-        
-        
+        return JsonResponse({'status':"success",'message':"movie record deleted successfully","data":data},status=200)    
         
     elif request.method=='POST':
         # data=json.loads(request.body) #whenever we send data in json fromat
         data=request.POST  # whenever we send data in form format
-        movie=Movie_details.objects.create(movie_name=data.get("movie_name"),release_date=data.get("release_date"),budget=data.get("budget"),rating=data.get("rating"))
+        Movie_info=Movie_details.objects.create(movie_name=data.get("movie_name"),release_date=data.get("release_date"),budget=data.get("budget"),rating=data.get("rating"))
         return JsonResponse({'status':"success",'message':"Movie record inserted successfully","data":data},status=200)
     return JsonResponse({'error':"error occured"},status=400)
 

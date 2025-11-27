@@ -5,7 +5,7 @@ class MovieReviewMiddleware:
     def __init__(self, get_response):
         self.get_response = get_response
     def __call__(self, request):
-        if(request.path=='/movies/') and request.method=='POST':
+        if(request.path=='/movies/' and request.method=='POST'):
             # print("movie api called")
             incoming_data=request.POST
             print("incoming data:",incoming_data)
