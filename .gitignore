@@ -143,7 +143,10 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+<<<<<<< HEAD
 newvenv
+=======
+>>>>>>> 7e31f4e38e75d20e83e7f9013b818b6781896507
 
 # Spyder project settings
 .spyderproject
