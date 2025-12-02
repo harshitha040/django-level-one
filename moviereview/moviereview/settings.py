@@ -80,7 +80,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'movie_reviews',
         'USER': 'root',
-        'PASSWORD': 'Tenali@0403',
+        'PASSWORD':'Tenali@0403',
         'HOST': '127.0.0.1',
         'PORT': '3306',
         'OPTIONS': {
@@ -88,7 +88,7 @@ DATABASES = {
             'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     }
-}
+}       
 
 
 
